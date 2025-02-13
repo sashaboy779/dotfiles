@@ -1,1 +1,1 @@
-## dotfiles for linux
+dotfiles for NixOS
