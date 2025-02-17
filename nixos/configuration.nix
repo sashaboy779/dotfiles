@@ -57,12 +57,6 @@
     enable = true;
     wayland.enable = true;
     autoLogin.relogin = true;
-    #settings = {
-    #  Autologin = {
-    #    Session = "hyprland";
-    #    User = "sunset";
-    #  };
-    #};
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
