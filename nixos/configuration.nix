@@ -10,6 +10,9 @@
       ./hardware-configuration.nix
     ];
 
+  # Enable flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -39,16 +42,27 @@
     LC_TIME = "uk_UA.UTF-8";
   };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
-  # Sunset: these are from the video 
   services.xserver = {
     enable = true;
-    displayManager.sddm.enable = true;
+
+    # Configure keymap in X11
+    xkb.layout = "us";
+    xkb.variant = "";
+  };
+
+  services.displayManager.autoLogin.user = "sunset";
+  services.displayManager.defaultSession = "hyprland";
+
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    autoLogin.relogin = true;
+    #settings = {
+    #  Autologin = {
+    #    Session = "hyprland";
+    #    User = "sunset";
+    #  };
+    #};
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -79,8 +93,7 @@
   };
 
   hardware = {
-    # opengl
-    opengl.enable = true;
+    graphics.enable = true;
     # most wayland compositors need this 
     nvidia.modesetting.enable = true;
   };
@@ -126,7 +139,7 @@
     dunst # notification deamon
     libnotify
     swww
-    kitty
+    alacritty
     rofi-wayland
   ];
 
